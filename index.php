@@ -1,13 +1,27 @@
 <?php
-
+    header('Content-type: application/json');
     require 'connect.php';
     require 'functions.php';
 
-    header('Content-type: application/json');
+    $method = $_SERVER['REQUEST_METHOD'];
 
-    $type = $_GET['q'];
+    $q = $_GET['q'];
+    $params = explode('/', $q);
 
-    if($type === 'posts') {
-        getPosts($connect);
+    $type = $params[0];
+    $id = $params[1];
+
+    if($method === 'GET') {
+        if($type === 'posts') {
+            if(isset($id)) {
+                getPost($connect, $id);
+            } else {
+                getPosts($connect);
+            }
+        }
     }
+
+
+
+
 
