@@ -39,3 +39,19 @@ function addPost($connect, $data) {
 
     print_r(json_encode($res));
 }
+
+function editPost($connect, $id, $data) {
+    $title = $data['title'];
+    $body = $data['body'];
+
+    mysqli_query($connect, "UPDATE `posts` SET `title` = '$title', `body` = '$body' WHERE `posts`.`id` = '$id'");
+
+    http_response_code(200);
+    $res = [
+        "status" => true,
+        "post_id" => "post_is_updated"
+    ];
+
+    print_r(json_encode($res));
+
+}
